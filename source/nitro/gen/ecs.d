@@ -1,5 +1,5 @@
 /***********************************************************************************************************************
-Implementation of an 'Array of Structures' and 'Structure of Arrays' Array
+Automatically generate an 'nitro' Entity Component System from modules
 
 Copyright: Copyright Felix 'Zoadian' Hufnagel 2014- and Paul Freund 2014-.
 License: a$(WEB boost.org/LICENSE_1_0.txt, Boost License 1.0).
@@ -21,8 +21,8 @@ enum System;
 /***********************************************************************************************************************
 ComponentsOfModule
 */
-template ComponentsOfModule(alias MODULE) {	
-	mixin("import " ~ fullyQualifiedName!MODULE ~ ";");
+template ComponentsOfModule(string MODULE_NAME) {	
+	mixin("import " ~ MODULE_NAME ~ "; alias MODULE = " ~ MODULE_NAME ~ ";");
 	template TYPE(string MEMBER_NAME) {
 		static if(__traits(compiles, __traits(getMember, MODULE, MEMBER_NAME)())) {
 			alias TYPE = typeof(__traits(getMember, MODULE, MEMBER_NAME)());
@@ -39,8 +39,8 @@ template ComponentsOfModule(alias MODULE) {
 /***********************************************************************************************************************
 SystemsOfModule
 */
-template SystemsOfModule(alias MODULE) {		
-	mixin("import " ~ fullyQualifiedName!MODULE ~ ";");
+template SystemsOfModule(string MODULE_NAME) {		
+	mixin("import " ~ MODULE_NAME ~ "; alias MODULE = " ~ MODULE_NAME ~ ";");
 	template TYPE(string MEMBER_NAME) {
 		// Temporary solution
 		static if(__traits(compiles, __traits(getMember, MODULE, MEMBER_NAME).stringof)) {
@@ -128,7 +128,7 @@ unittest {
     writeln("################## GEN.ECSGEN UNITTEST START ##################");
 
 	// Test gen ecs functionality
-	auto autoECS = makeECS!(nitro.gen.ecsgen, nitro.gen.querygen)();
+	auto autoECS = makeECS!("nitro.gen.ecs", "nitro.gen.query")();
 
 	Entity entity = autoECS.ecm.createEntity();
     autoECS.ecm.addComponents(entity, ECSGEN_ComponentOne("CheckpointOne"));

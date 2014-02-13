@@ -1,6 +1,5 @@
 /***********************************************************************************************************************
-Automatically generate queries based on functions in Systems
-This Module is optional and not using it is (currently) preferred.
+Automatically generate queries based on system functions
 
 Copyright: Copyright Felix 'Zoadian' Hufnagel 2014- and Paul Freund 2014-.
 License: a$(WEB boost.org/LICENSE_1_0.txt, Boost License 1.0).
@@ -8,16 +7,17 @@ Authors: $(WEB zoadian.de, Felix 'Zoadian' Hufnagel) and $(WEB lvl3.org, Paul Fr
 */
 module nitro.gen.query;
 
+import nitro.gen.ecs;
 import nitro.accessor;
 
-private template TemplateInfo( T ) {
+template TemplateInfo( T ) {
 	static if ( is( T t == U!V, alias U, V... ) ) {
 		alias U Template;
 		alias V Arguments;
 	}
 }
 
-private template MemberFunctions(T) {
+template MemberFunctions(T) {
 	import std.typetuple : staticMap; 
 	template ToFunctionType(string functionName) {
 		import std.traits : MemberFunctionsTuple;
@@ -26,7 +26,7 @@ private template MemberFunctions(T) {
 	alias MemberFunctions = staticMap!(ToFunctionType, __traits(allMembers, T));
 }
 
-private auto pushEntity(ECM, ARGS...)(ECM ecm, ARGS args) {
+auto pushEntity(ECM, ARGS...)(ECM ecm, ARGS args) {
 	auto e = ecm.createEntity();
 	foreach(arg;args) {
         ecm.addComponents(e, arg);
@@ -291,7 +291,7 @@ unittest {
     writeln("################## GEN.QUERYGEN UNITTEST START ##################");
 
 	// Test gen ecs functionality
-	auto autoECS = makeECS!(nitro.gen.querygen)();
+	auto autoECS = makeECS!("nitro.gen.query")();
 
     Entity e = autoECS.ecm.pushEntity(QUERYGEN_ComponentOne("CheckSum: "));
 
