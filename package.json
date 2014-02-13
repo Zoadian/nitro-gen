@@ -1,12 +1,16 @@
 {
-	"name": "nitro",
+	"name": "nitro-gen",
 	"license": "BSL-1.0",
 	"description": "Automatically generate an 'nitro' Entity Component System from modules. Automatically generate queries based on system functions.",
-	"copyright": "Copyright © 2014, Felix 'Zoadian' Hufnagel",
+	"copyright": "Copyright Felix 'Zoadian' Hufnagel 2014- and Paul Freund 2014-",
 	"authors": [
 		"Felix 'Zoadian' Hufnagel",
 		"Paul Freund"
 	],
+	
+	"dependencies": {
+        	"nitro" : "~master"
+	},
 	
 	"targetType": "sourceLibrary",
 	
