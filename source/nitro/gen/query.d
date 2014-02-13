@@ -7,8 +7,8 @@ Authors: $(WEB zoadian.de, Felix 'Zoadian' Hufnagel) and $(WEB lvl3.org, Paul Fr
 */
 module nitro.gen.query;
 
+import nitro;
 import nitro.gen.ecs;
-import nitro.accessor;
 
 template TemplateInfo( T ) {
 	static if ( is( T t == U!V, alias U, V... ) ) {

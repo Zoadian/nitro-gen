@@ -7,7 +7,7 @@ Authors: $(WEB zoadian.de, Felix 'Zoadian' Hufnagel) and $(WEB lvl3.org, Paul Fr
 */
 module nitro.gen.ecs;
 
-import nitro.ecs;
+import nitro;
 
 import std.traits : fullyQualifiedName;
 private enum isModule(alias T) = __traits(compiles, mixin("import " ~ fullyQualifiedName!T ~ ";"));

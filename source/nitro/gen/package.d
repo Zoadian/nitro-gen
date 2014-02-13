@@ -7,5 +7,6 @@ Authors: $(WEB zoadian.de, Felix 'Zoadian' Hufnagel) and $(WEB lvl3.org, Paul Fr
 */
 module nitro.gen;
 
+public import nitro;
 public import nitro.gen.ecs;
 public import nitro.gen.query;
